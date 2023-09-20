@@ -16,7 +16,38 @@ install _dependencies_ yang dibutuhkan dangan menjalankan _command_
 ```
 
 ## Migrasi DB
+### Setup Database
+Sebelum melakukan migrasi, pastikan MySQL service sudah dijalankan menggunakan XAMPP dan database sudah dibuat. apabila database belum dibuat, maka buat database dengan nama yang mengacu pada file config.json
 
+```js
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "event_app_dev",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+untuk development kita bisa menggunakan nama *event_app_dev*.
+
+### Migrasi
 untuk migrasi jalankan _command_
 
 ```bash
@@ -30,7 +61,7 @@ buat file .env pada _root directory_ dengan format sebagai berikut
 ```bash
 NODE_ENV=development
 PORT=5000
-DB_NAME=event_app_dev
+DB_NAME=(nama_database)
 DB_HOST=localhost
 DB_PORT=(port mysql)
 DB_USER=(user mysql)
