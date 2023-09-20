@@ -1,10 +1,10 @@
-import { Model, DataTypes } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const  Database  = require("../src/database/db");
 
 class Transactions extends Model {}
 Transactions.init(
   {
-    transaction_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
@@ -53,4 +53,4 @@ Transactions.init(
   }
 );
 
-export default Transactions;
+module.exports = Transactions;
