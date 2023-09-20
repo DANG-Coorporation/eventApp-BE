@@ -1,10 +1,10 @@
-import { Model, DataTypes } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const  Database  = require("../src/database/db");
 
 class Events extends Model {}
 Events.init(
   {
-    event_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
@@ -67,4 +67,4 @@ Events.init(
   }
 );
 
-export default Events;
+module.exports =  Events;

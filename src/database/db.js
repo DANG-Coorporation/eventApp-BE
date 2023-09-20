@@ -1,9 +1,9 @@
-import { Sequelize, DataTypes } from "sequelize";
-import dotEnv from "dotenv";
+const { Sequelize } = require("sequelize");
+const dotEnv = require("dotenv");
 
 dotEnv.config();
 
-class Database {
+module.exports = class Database {
   #dbName;
   #user;
   #pass;
@@ -20,6 +20,10 @@ class Database {
     this.#dbConnection = new Sequelize(this.#dbName, this.#user, this.#pass, {
       host: this.#host,
       dialect: "mysql",
+      port: this.#port,
+      define: {
+        timestamps: false,
+      },
     });
   }
 
@@ -27,16 +31,14 @@ class Database {
     return this.#dbConnection;
   }
 
-  #connect() {
-    this.#dbConnection
-      .authenticate()
-      .then(() => {
-        console.log("DB connection success");
-      })
-      .catch((e) => {
-        console.log("DB connection failed");
-      });
+  connect() {
+    return this.#dbConnection.authenticate();
   }
-}
 
-export default Database;
+  sync() {
+    this.#dbConnection.sync({
+      force: false,
+      alter: false,
+    });
+  }
+};

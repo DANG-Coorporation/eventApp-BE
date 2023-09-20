@@ -1,10 +1,10 @@
-import {Model, DataTypes } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const Database = require("../src/database/db");
 
 class Users extends Model {}
 Users.init(
   {
-    user_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
@@ -29,4 +29,4 @@ Users.init(
   }
 );
 
-export default Users;
+module.exports = Users;

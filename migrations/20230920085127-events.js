@@ -12,15 +12,13 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.DataTypes.BIGINT,
-        // references: {
-        //   model: {
-        //     tableName: "users",
-        //   },
-        //   key: "user_id",
-        // },
         allowNull: true,
       },
       event_name: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
+      event_category: {
         type: Sequelize.DataTypes.STRING,
         allowNull: true,
       },

@@ -1,17 +1,17 @@
-import { DataTypes, Model } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const Database = require("../src/database/db");
 
 class Referrals extends Model {}
 
 Model.init(
   {
-    referral_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
       allowNull: true,
     },
-    transcation_id: {
+    transaction_id: {
       type: DataTypes.BIGINT,
       references: {
         model: {
@@ -32,4 +32,5 @@ Model.init(
   }
 );
 
-export default Referrals;
+// export default Referrals;
+module.exports = Referrals;

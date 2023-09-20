@@ -1,11 +1,11 @@
-import { DataTypes, Model } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const  Database  = require("../src/database/db");
 
 class Reviews extends Model {}
 
 Reviews.init(
   {
-    review_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
@@ -38,4 +38,4 @@ Reviews.init(
   }
 );
 
-export default Reviews;
+module.exports = Reviews

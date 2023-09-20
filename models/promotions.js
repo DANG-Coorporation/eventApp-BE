@@ -1,10 +1,10 @@
-import { Model, DataTypes } from "sequelize";
-import Database from "../src/database/db";
+const { Model, DataTypes } = require("sequelize");
+const  Database  = require("../src/database/db");
 
 class Promotions extends Model {}
 Promotions.init(
   {
-    promotion_id: {
+    id: {
       type: DataTypes.BIGINT,
       primaryKey: true,
       autoIncrement: true,
@@ -51,4 +51,4 @@ Promotions.init(
   }
 );
 
-export default Promotions;
+module.exports = Promotions;
