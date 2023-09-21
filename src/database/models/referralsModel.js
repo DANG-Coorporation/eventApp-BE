@@ -1,7 +1,14 @@
 const { Model, DataTypes } = require("sequelize");
 const Database = require("../src/database/db");
 
-class Referrals extends Model {}
+class Referrals extends Model {
+  static associate(models) {
+    Referrals.hasOne(models.Transaction, {
+      foreignKey: "transaction_id",
+    });
+    models.Transaction.belongsTo(Referrals);
+  }
+}
 
 Model.init(
   {
@@ -32,5 +39,4 @@ Model.init(
   }
 );
 
-// export default Referrals;
 module.exports = Referrals;
