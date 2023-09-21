@@ -13,7 +13,10 @@ module.exports = class Database {
 
   constructor() {
     this.#dbName = process.env.DB_NAME;
-    this.#host = process.env.DB_HOST;
+    this.#host =
+      process.env.NODE_ENV === "development"
+        ? process.env.DB_HOST_DEV
+        : process.env.DB_HOST;
     this.#port = process.env.DB_PORT;
     this.#user = process.env.DB_USER;
     this.#pass = process.env.DB_PASS;
