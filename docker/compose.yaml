@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  backend-passify:
+    image: backend-passify
+    container_name: passify-container
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    env_file:
+      - ../.env
+    networks:
+      - passify_network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  passify_network:
+    name: passify_network
+    driver: bridge

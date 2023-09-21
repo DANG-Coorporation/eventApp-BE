@@ -41,4 +41,14 @@ module.exports = class Database {
       alter: false,
     });
   }
+
+  getConfig() {
+    return {
+      dbName: this.#dbName,
+      user: this.#user,
+      pass: this.#pass,
+      host: this.#host,
+      port: this.#port,
+    };
+  }
 };
