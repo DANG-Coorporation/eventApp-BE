@@ -1,7 +1,14 @@
 const { Model, DataTypes } = require("sequelize");
 const  Database  = require("../src/database/db");
 
-class Reviews extends Model {}
+class Reviews extends Model {
+  static associate(models) {
+    Reviews.hasMany(models.Transaction, {
+      foreignKey: "transcation_id",
+    });
+    models.Transaction.belongsTo(Reviews);
+  }
+}
 
 Reviews.init(
   {

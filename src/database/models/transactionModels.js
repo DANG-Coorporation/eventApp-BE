@@ -1,7 +1,19 @@
 const { Model, DataTypes } = require("sequelize");
-const  Database  = require("../src/database/db");
+const Database = require("../src/database/db");
 
-class Transactions extends Model {}
+class Transactions extends Model {
+  static associate(models) {
+    Transactions.hasMany(models.Users, {
+      foreignKey: "user_id",
+    });
+    models.Users.belongsTo(Transactions);
+
+    Transactions.hasMany(models.Events, {
+      foreignKey: "event_id",
+    });
+    models.Events.belongsTo(Transactions);
+  }
+}
 Transactions.init(
   {
     id: {

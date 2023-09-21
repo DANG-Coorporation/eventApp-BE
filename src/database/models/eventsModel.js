@@ -1,7 +1,15 @@
 const { Model, DataTypes } = require("sequelize");
-const  Database  = require("../src/database/db");
+const Database = require("../src/database/db");
+const Users = require("./usersModel");
 
-class Events extends Model {}
+class Events extends Model {
+  static associate(models) {
+    Events.hasMany(models.Users, {
+      foreignKey: "user_id",
+    });
+    models.Users.belongsTo(Events);
+  }
+}
 Events.init(
   {
     id: {
@@ -67,4 +75,4 @@ Events.init(
   }
 );
 
-module.exports =  Events;
+module.exports = Events;
