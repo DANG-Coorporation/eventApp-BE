@@ -16,7 +16,9 @@ install _dependencies_ yang dibutuhkan dangan menjalankan _command_
 ```
 
 ## Migrasi DB
+
 ### Setup Database
+
 Sebelum melakukan migrasi, pastikan MySQL service sudah dijalankan menggunakan XAMPP dan database sudah dibuat. apabila database belum dibuat, maka buat database dengan nama yang mengacu pada file config.json
 
 ```js
@@ -45,9 +47,10 @@ Sebelum melakukan migrasi, pastikan MySQL service sudah dijalankan menggunakan X
 }
 ```
 
-untuk development kita bisa menggunakan nama *event_app_dev*.
+untuk development kita bisa menggunakan nama _event_app_dev_.
 
 ### Migrasi
+
 untuk migrasi jalankan _command_
 
 ```bash
@@ -62,7 +65,8 @@ buat file .env pada _root directory_ dengan format sebagai berikut
 NODE_ENV=development
 PORT=5000
 DB_NAME=(nama_database)
-DB_HOST=localhost
+DB_HOST=host.docker.internal
+DB_HOST_DEV=localhost
 DB_PORT=(port mysql)
 DB_USER=(user mysql)
 DB_PASS=(password mysql)
