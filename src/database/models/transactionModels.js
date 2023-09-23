@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const Database = require("../src/database/db");
+const Database = require("../db");
 
 class Transactions extends Model {
   static associate(models) {

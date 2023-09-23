@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
-const Database = require("../src/database/db");
+const Database = require("../db");
 
 class Referrals extends Model {
   static associate(models) {
