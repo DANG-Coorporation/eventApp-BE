@@ -5,6 +5,7 @@ const dotEnv = require("dotenv");
 const cors = require("cors");
 
 const mainRoute = require("./routes/mainRoute.js");
+const loginRoute = require("./routes/loginRoute.js");
 const Database = require("./database/db.js");
 
 class Server {
@@ -25,6 +26,7 @@ class Server {
 
     //tambahkan semua route di sini ges
     this.use(mainRoute);
+    this.use(loginRoute);
   }
 
   use(path = "/", router) {
