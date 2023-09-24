@@ -6,10 +6,12 @@ const router = express.Router();
 
 router.post("/login", Validator.validateLogin, async (req, res) => {
   try {
-    const token = jwt.sign(req.userObj, "secret");
-    console.log(token);
-    const decoded = jwt.decode(token);
-    console.log(decoded);
+    const token = jwt.sign(req.userObj, process.env.JWT_TOKEN);
+    res.status(200).json({
+      code: 200,
+      message: "login success",
+      token: token,
+    });
   } catch (e) {
     res.status(500).json({
       code: 500,

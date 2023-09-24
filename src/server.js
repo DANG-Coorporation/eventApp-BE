@@ -3,10 +3,11 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const dotEnv = require("dotenv");
 const cors = require("cors");
+const Database = require("./database/db.js");
 
 const mainRoute = require("./routes/mainRoute.js");
 const loginRoute = require("./routes/loginRoute.js");
-const Database = require("./database/db.js");
+const signUpRoute = require("./routes/signupRoute.js");
 
 class Server {
   #server = undefined;
@@ -25,8 +26,9 @@ class Server {
     this.#server.use(bodyParser.urlencoded({ extended: true }));
 
     //tambahkan semua route di sini ges
-    this.use(mainRoute);
     this.use(loginRoute);
+    this.use(signUpRoute);
+    this.use(mainRoute);
   }
 
   use(path = "/", router) {
