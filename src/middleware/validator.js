@@ -55,7 +55,6 @@ class Validator {
         });
         return;
       }
-
       req.userObj = users.dataValues;
       next();
     } catch (e) {
