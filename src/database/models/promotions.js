@@ -59,6 +59,4 @@ Promotions.init(
   }
 );
 
-Promotions.hasMany();
-
 module.exports = Promotions;
