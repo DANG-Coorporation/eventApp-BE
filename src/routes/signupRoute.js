@@ -9,7 +9,7 @@ router.post("/signup", Validator.validateSignUp, async (req, res) => {
     await Users.create({
       email: temp.email,
       password: temp.password,
-      name: "Naufan Rikza Ahmada",
+      name: temp.name,
     });
     res.status(200).json({
       status: 200,
