@@ -12,24 +12,14 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.DataTypes.BIGINT,
-        // references: {
-        //   model: {
-        //     tableName: "users",
-        //     schema: "schema",
-        //   },
-        //   key: "user_id",
-        // },
         allowNull: true,
       },
       event_id: {
         type: Sequelize.DataTypes.BIGINT,
-        // references: {
-        //   model: {
-        //     tableName: "events",
-        //     schema: "schema",
-        //   },
-        //   key: "event_id",
-        // },
+        allowNull: true,
+      },
+      promotion_id: {
+        type: Sequelize.DataTypes.BIGINT,
         allowNull: true,
       },
       email: {

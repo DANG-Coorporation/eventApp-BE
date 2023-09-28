@@ -1,5 +1,6 @@
-const Users = require("../database/models/usersModel");
+// const Users = require("../database/models/usersModel");
 const jwt = require("jsonwebtoken");
+const db = require("../database/models");
 
 class Validator {
   static async validateApi(req, res, next) {
@@ -13,7 +14,7 @@ class Validator {
         });
         return;
       }
-      const userdb = await Users.findOne({
+      const userdb = await db.User.findOne({
         where: {
           email: user.email,
           password: user.password,
@@ -40,7 +41,7 @@ class Validator {
   static async validateLogin(req, res, next) {
     try {
       const body = req.body;
-      const users = await Users.findOne({
+      const users = await db.User.findOne({
         where: {
           email: body.email,
           password: body.password,
@@ -69,7 +70,7 @@ class Validator {
   static async validateSignUp(req, res, next) {
     try {
       const body = req.body;
-      const users = await Users.findOne({
+      const users = await db.User.findOne({
         where: {
           email: body.email,
         },
