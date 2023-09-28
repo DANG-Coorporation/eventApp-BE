@@ -9,6 +9,7 @@ module.exports = {
         table: "users",
         field: "id",
       },
+      name: "userid_fk_tr",
       type: "foreign key",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
@@ -20,6 +21,19 @@ module.exports = {
         table: "events",
         field: "id",
       },
+      name: "eventrid_fk_tr",
+      type: "foreign key",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+
+    await queryInterface.addConstraint("transactions", {
+      fields: ["promotion_id"],
+      references: {
+        table: "promotions",
+        field: "id",
+      },
+      name: "promotionid_fk_tr",
       type: "foreign key",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
@@ -27,15 +41,8 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("transactions", "user_id");
-    await queryInterface.removeColumn("transactions", "event_id");
-    await queryInterface.addColumn("transactions", "user_id", {
-      type: Sequelize.BIGINT,
-      allowNull: true,
-    });
-    await queryInterface.addColumn("transactions", "event_id", {
-      type: Sequelize.BIGINT,
-      allowNull: true,
-    });
+    await queryInterface.removeConstraint("transactions", "userid_fk_tr");
+    await queryInterface.removeConstraint("transactions", "eventrid_fk_tr");
+    await queryInterface.removeConstraint("transactions", "promotionid_fk_tr");
   },
 };

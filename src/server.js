@@ -8,6 +8,7 @@ const Database = require("./database/db.js");
 const mainRoute = require("./routes/mainRoute.js");
 const loginRoute = require("./routes/loginRoute.js");
 const signUpRoute = require("./routes/signupRoute.js");
+const dummyRoute = require("./routes/dummyRoute.js");
 
 class Server {
   #server = undefined;
@@ -28,6 +29,7 @@ class Server {
     //tambahkan semua route di sini ges
     this.use(loginRoute);
     this.use(signUpRoute);
+    this.use(dummyRoute);
     this.use(mainRoute);
   }
 
