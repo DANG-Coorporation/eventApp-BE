@@ -9,17 +9,14 @@ module.exports = {
         table: "transactions",
         field: "id",
       },
+      name: "transactionid_fk_rf",
       type: "foreign key",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("referrals", "transaction_id");
-    await queryInterface.addColumn("referrals", "transaction_id", {
-      type: Sequelize.BIGINT,
-      allowNull: true,
-    });
+  async down(queryInterface) {
+    await queryInterface.removeConstraint("referrals", "transactionid_fk_rf");
   },
 };

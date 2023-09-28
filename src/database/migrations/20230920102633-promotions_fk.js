@@ -9,17 +9,14 @@ module.exports = {
         table: "events",
         field: "id",
       },
+      name: "eventid_fk_pr",
       type: "foreign key",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn("promotions", "event_id");
-    await queryInterface.addColumn("promotions", "event_id", {
-      type: Sequelize.BIGINT,
-      allowNull: true,
-    });
+  async down(queryInterface) {
+    await queryInterface.removeConstraint("promotions", "eventid_fk_pr");
   },
 };

@@ -1,12 +1,13 @@
 const express = require("express");
 const Validator = require("../middleware/validator");
-const Users = require("../database/models/usersModel");
+// const Users = require("../database/models/usersModel");
+const db = require("../database/models");
 const router = express.Router();
 
 router.post("/signup", Validator.validateSignUp, async (req, res) => {
   try {
     const temp = req.body;
-    await Users.create({
+    await db.User.create({
       email: temp.email,
       password: temp.password,
       name: temp.name,
