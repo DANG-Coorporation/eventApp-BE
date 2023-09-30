@@ -1,7 +1,7 @@
 const db = require("../database/models");
 
 class EventController {
-  static async getEventsController(req, res) {
+  static async getEvents(req, res) {
     try {
       const events = await db.Event.findAll({
         raw: true,
@@ -21,7 +21,7 @@ class EventController {
     }
   }
 
-  static async getEventbyIdController(req, res) {
+  static async getEventbyId(req, res) {
     try {
       const event = await db.Event.findOne({
         where: {

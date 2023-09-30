@@ -12,6 +12,7 @@ const loginRoute = require("./routes/loginRoute.js");
 const signUpRoute = require("./routes/signupRoute.js");
 const dummyRoute = require("./routes/dummyRoute.js");
 const eventRoute = require("./routes/eventRoute.js");
+const promotionRoute = require("./routes/pomotionRoute.js");
 
 class Server {
   #server = undefined;
@@ -35,6 +36,7 @@ class Server {
     this.use(loginRoute);
     this.use(signUpRoute);
     this.use(eventRoute);
+    this.use(promotionRoute);
 
     this.use(mainRoute);
   }
