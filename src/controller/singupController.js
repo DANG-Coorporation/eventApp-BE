@@ -14,7 +14,7 @@ const signupController = async (req, res) => {
     });
   } catch (e) {
     res.status(500).json({
-      status: 200,
+      status: 500,
       message: "Signup failed",
       error: e.toString(),
     });

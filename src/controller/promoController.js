@@ -1,4 +1,6 @@
+const moment = require("moment/moment");
 const db = require("../database/models");
+const normalizeDate = require("../utils/normalizeDate");
 
 class PromoController {
   static async getPromos(req, res, next) {
@@ -84,7 +86,8 @@ class PromoController {
 
   static async checkPromoByEvent(req, res) {
     try {
-      const { event_id, promo_code } = req.query;
+      const { event_id, promo_code, date_now } = req.query;
+      console.log(req.query);
 
       const promo = await db.Promotion.findOne({
         raw: true,
@@ -94,21 +97,66 @@ class PromoController {
         },
       });
 
+      const referral = await db.Referral.findOne({
+        raw: true,
+        where: {
+          referral_code: promo_code,
+        },
+      });
+
+      if (!promo && !referral) {
+        return res.status(200).json({
+          status: 200,
+          message: "Request was successfull",
+          error: null,
+          data: {
+            isValid: false,
+            detail: promo,
+          },
+        });
+      }
+
+      if (promo) {
+        const endDate = moment(normalizeDate(promo.end_date.toISOString()));
+        const startDate = moment(normalizeDate(promo.start_date.toISOString()));
+        const currentDate = moment(date_now);
+
+        console.log(startDate);
+        console.log(endDate);
+
+        if (
+          !promo.active ||
+          currentDate.valueOf() < startDate.valueOf() ||
+          currentDate.valueOf() > endDate.valueOf()
+        ) {
+          return res.status(200).json({
+            status: 200,
+            message: "Request was successfull",
+            error: null,
+            data: {
+              isValid: false,
+              detail: promo,
+            },
+          });
+        }
+      }
+
       res.status(200).json({
         status: 200,
         message: "Request was successfull",
         error: null,
         data: {
-          isValid: promo ? true : false,
+          isValid: true,
           detail: promo,
         },
       });
     } catch (e) {
+      console.log(e);
       res.status(500).json({
         status: 500,
         message: "Request failed",
-        error: null,
-        data: promos,
+        error: e.toString(),
+        data: null,
       });
     }
   }

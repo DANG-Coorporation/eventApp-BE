@@ -38,15 +38,14 @@ module.exports = {
         type: Sequelize.DataTypes.DATE,
         allowNull: true,
       },
+      isTransactionCompleted: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: true,
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    await queryInterface.dropTable("transactions");
   },
 };

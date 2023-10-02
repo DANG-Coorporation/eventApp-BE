@@ -9,8 +9,8 @@ module.exports = {
         event_name: "GOAL KAMPUNG",
         event_category: "sport",
         ticket_type: "not free",
-        start_date: "2023-09-30T10:00:00.000Z",
-        end_date: "2023-09-30T17:00:00.000Z",
+        start_date: "2023-11-02T10:00:00.000Z",
+        end_date: "2023-11-02T17:00:00.000Z",
         location: "DKI Jakarta",
         event_place: "Mahaka Square",
         description:
@@ -20,7 +20,7 @@ module.exports = {
         img: "localhost",
       },
       {
-        user_id: "1",
+        user_id: "2",
         event_name: "[TIM] MLBB SULTAN CUP RISING STAR",
         event_category: "e-sport",
         ticket_type: "not free",
@@ -36,7 +36,7 @@ module.exports = {
         img: "localhost",
       },
       {
-        user_id: "1",
+        user_id: "2",
         event_name: `MANDIRIFEST 2023 vol.2 "NGEDEM ATI" mempersembahkan HAPPY ASMARA dan MR. JONO JONI`,
         event_category: "music",
         ticket_type: "not free",
