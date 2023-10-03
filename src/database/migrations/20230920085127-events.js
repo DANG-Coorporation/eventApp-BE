@@ -8,55 +8,55 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       user_id: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       event_name: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       event_category: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       ticket_type: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       start_date: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
       },
       end_date: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
       },
       location: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       event_place: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       description: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       price: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       quota: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       img: {
         type: Sequelize.DataTypes.TEXT("long"),
-        allowNull: true,
+        allowNull: false,
       },
     });
   },

@@ -4,7 +4,6 @@ class TransactionController {
   static async createTransaction(req, res) {
     try {
       const body = req.body;
-      console.log(body);
       await db.Transaction.create(body);
       res.status(200).json({
         status: 200,
@@ -24,6 +23,29 @@ class TransactionController {
     try {
       console.log("hre");
       const transactions = await db.Transaction.findAll();
+      res.status(200).json({
+        status: 200,
+        message: "Request was succesfull",
+        error: null,
+        data: transactions,
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 500,
+        message: "Request failed",
+        error: e.toString(),
+      });
+    }
+  }
+
+  static async getTransactionByUserId(req, res) {
+    try {
+      const userId = req.params.id;
+      const transactions = await db.Transaction.findAll({
+        where: {
+          user_id: userId,
+        },
+      });
       res.status(200).json({
         status: 200,
         message: "Request was succesfull",

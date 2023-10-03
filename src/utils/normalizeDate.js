@@ -1,6 +1,7 @@
+const moment = require("moment/moment");
+
 const normalizeDate = (date = "") => {
-  const temp = date.split(".");
-  return temp[0] + "+07:00";
+  return moment(date, "DD-MM-YYYY HH:mm:ss");
 };
 
 module.exports = normalizeDate;

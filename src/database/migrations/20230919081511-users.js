@@ -8,19 +8,19 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       email: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       password: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       name: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
     });
   },

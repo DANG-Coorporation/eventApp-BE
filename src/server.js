@@ -14,6 +14,7 @@ const dummyRoute = require("./routes/dummyRoute.js");
 const eventRoute = require("./routes/eventRoute.js");
 const promotionRoute = require("./routes/pomotionRoute.js");
 const transactionRoute = require("./routes/transactionRoute.js");
+const dashboardRoute = require("./routes/dashboardRoute.js");
 
 class Server {
   #server = undefined;
@@ -39,6 +40,7 @@ class Server {
     this.use(eventRoute);
     this.use(promotionRoute);
     this.use(transactionRoute);
+    this.use(dashboardRoute);
 
     this.use(mainRoute);
   }

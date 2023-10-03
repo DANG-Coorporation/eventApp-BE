@@ -63,6 +63,7 @@
 
 "use strict";
 const { Model } = require("sequelize");
+const moment = require("moment/moment");
 module.exports = (sequelize, DataTypes) => {
   class Promotion extends Model {
     static associate(models) {
@@ -70,6 +71,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "event_Id",
       });
       Promotion.hasMany(models.Transaction, {
+        as: "transaction",
         foreignKey: "promotion_id",
       });
     }
@@ -80,7 +82,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       event_id: {
         type: DataTypes.BIGINT,
@@ -94,27 +96,37 @@ module.exports = (sequelize, DataTypes) => {
       },
       promo_code: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       start_date: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+        get: function () {
+          return moment(this.getDataValue("start_date")).format(
+            "DD-MM-YYYY HH:mm:ss"
+          );
+        },
       },
       end_date: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+        get: function () {
+          return moment(this.getDataValue("end_date")).format(
+            "DD-MM-YYYY HH:mm:ss"
+          );
+        },
       },
       discount: {
         type: DataTypes.SMALLINT,
-        allowNull: true,
+        allowNull: false,
       },
       quota: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       active: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

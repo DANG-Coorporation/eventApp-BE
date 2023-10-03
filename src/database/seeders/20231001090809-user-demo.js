@@ -10,9 +10,19 @@ module.exports = {
         name: "Naufan Rikza Ahmada",
       },
       {
-        email: "lorem@gmail",
+        email: "lorem@gmail.com",
         password: "lorem123456789",
         name: "Lorem Ipsum",
+      },
+      {
+        email: "juan@lorem.id",
+        password: "juan123456789",
+        name: "Juan Lorem",
+      },
+      {
+        email: "setya@gmail.id",
+        password: "setyabudinamaku99",
+        name: "Setya Budi",
       },
     ]);
   },

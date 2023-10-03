@@ -82,6 +82,7 @@
 
 "use strict";
 const { Model } = require("sequelize");
+const moment = require("moment/moment");
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
     static associate(models) {
@@ -89,9 +90,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "user_id",
       });
       Event.hasMany(models.Promotion, {
+        as: "promotion",
         foreignKey: "event_id",
       });
       Event.hasMany(models.Transaction, {
+        as: "transaction",
         foreignKey: "event_id",
       });
     }
@@ -102,7 +105,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       user_id: {
         type: DataTypes.BIGINT,
@@ -116,43 +119,53 @@ module.exports = (sequelize, DataTypes) => {
       },
       event_name: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       ticket_type: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       start_date: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+        get: function () {
+          return moment(this.getDataValue("start_date")).format(
+            "DD-MM-YYYY HH:mm:ss"
+          );
+        },
       },
       end_date: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+        get: function () {
+          return moment(this.getDataValue("end_date")).format(
+            "DD-MM-YYYY HH:mm:ss"
+          );
+        },
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       event_place: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       price: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       quota: {
         type: DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       img: {
         type: DataTypes.TEXT("long"),
-        allowNull: true,
+        allowNull: false,
       },
     },
     {
