@@ -8,25 +8,27 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
 
       transcation_id: {
         type: Sequelize.DataTypes.BIGINT,
-        // references: {
-        //   model: "Transaction",
-        //   key: "transaction_id",
-        // },
-        allowNull: true,
+        allowNull: false,
       },
 
       star: {
         type: Sequelize.DataTypes.SMALLINT,
-        allowNull: true,
+        allowNull: false,
       },
 
       comment: {
         type: Sequelize.DataTypes.TEXT("long"),
+        allowNull: true,
+      },
+
+      isEdited: {
+        type: Sequelize.DataTypes.BOOLEAN,
+        allowNull: false,
       },
     });
   },

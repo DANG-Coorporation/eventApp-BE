@@ -8,15 +8,15 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       user_id: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       event_id: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       promotion_id: {
         type: Sequelize.DataTypes.BIGINT,
@@ -24,23 +24,27 @@ module.exports = {
       },
       email: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       qty: {
         type: Sequelize.DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       name: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       buy_date: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+      },
+      bill: {
+        type: Sequelize.DataTypes.BIGINT,
+        allowNull: false,
       },
       isTransactionCompleted: {
         type: Sequelize.DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     });
   },

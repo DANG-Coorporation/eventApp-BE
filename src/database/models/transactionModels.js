@@ -69,6 +69,7 @@
 
 "use strict";
 const { Model } = require("sequelize");
+const moment = require("moment/moment");
 module.exports = (sequelize, DataTypes) => {
   class Transaction extends Model {
     static associate(models) {
@@ -82,9 +83,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "promotion_id",
       });
       Transaction.hasMany(models.Referral, {
+        as: "referral",
         foreignKey: "transaction_id",
       });
       Transaction.hasMany(models.Review, {
+        as: "review",
         foreignKey: "transaction_id",
       });
     }
@@ -95,7 +98,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       user_id: {
         type: DataTypes.BIGINT,
@@ -106,6 +109,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           key: "user_id",
         },
+        allowNull: false,
       },
       event_id: {
         type: DataTypes.BIGINT,
@@ -116,6 +120,7 @@ module.exports = (sequelize, DataTypes) => {
           },
           key: "event_id",
         },
+        allowNull: false,
       },
       promotion_id: {
         type: DataTypes.BIGINT,
@@ -126,26 +131,36 @@ module.exports = (sequelize, DataTypes) => {
           },
           key: "event_id",
         },
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       qty: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       buy_date: {
         type: DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
+        get: function () {
+          return moment(this.getDataValue("buy_date")).format(
+            "DD-MM-YYYY HH:mm:ss"
+          );
+        },
+      },
+      bill: {
+        type: DataTypes.BIGINT,
+        allowNull: false,
       },
       isTransactionCompleted: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

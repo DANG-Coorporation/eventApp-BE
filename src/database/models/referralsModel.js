@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
   class Referral extends Model {
     static associate(models) {
       Referral.belongsTo(models.Transaction, {
-        foreignKey : "transaction_id"
+        foreignKey: "transaction_id",
       });
     }
   }
@@ -57,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       transaction_id: {
         type: DataTypes.BIGINT,
@@ -68,10 +68,11 @@ module.exports = (sequelize, DataTypes) => {
           },
           key: "transaction_id",
         },
+        allowNull: false,
       },
       referral_code: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
     },
     {

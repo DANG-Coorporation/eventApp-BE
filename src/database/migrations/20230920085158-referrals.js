@@ -8,21 +8,15 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       transaction_id: {
         type: Sequelize.DataTypes.BIGINT,
-        // references: {
-        //   model: {
-        //     tableName: "transactions",
-        //   },
-        //   key: "transaction_id",
-        // },
-        allowNull: true,
+        allowNull: false,
       },
       referral_code: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
     });
   },

@@ -63,10 +63,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
 
-      transcation_id: {
+      transaction_id: {
         type: DataTypes.BIGINT,
         references: {
           model: {
@@ -75,15 +75,22 @@ module.exports = (sequelize, DataTypes) => {
           },
           key: "transaction_id",
         },
+        allowNull: false,
       },
 
       star: {
         type: DataTypes.SMALLINT,
-        allowNull: true,
+        allowNull: false,
       },
 
       comment: {
         type: DataTypes.TEXT("long"),
+        allowNull: true,
+      },
+
+      isEdited: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {

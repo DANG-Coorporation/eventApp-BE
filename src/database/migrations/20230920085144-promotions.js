@@ -8,35 +8,35 @@ module.exports = {
         type: Sequelize.DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: true,
+        allowNull: false,
       },
       event_id: {
         type: Sequelize.DataTypes.BIGINT,
-        allowNull: true,
+        allowNull: false,
       },
       promo_code: {
         type: Sequelize.DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       start_date: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
       },
       end_date: {
         type: Sequelize.DataTypes.DATE,
-        allowNull: true,
+        allowNull: false,
       },
       discount: {
         type: Sequelize.DataTypes.SMALLINT,
-        allowNull: true,
+        allowNull: false,
       },
       quota: {
         type: Sequelize.DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
       active: {
         type: Sequelize.DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: false,
       },
     });
   },
