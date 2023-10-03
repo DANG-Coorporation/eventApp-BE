@@ -5,7 +5,7 @@ const db = require("../database/models");
 class Validator {
   static async validateApi(req, res, next) {
     try {
-      const whitelist = ["/", "/login", "/signup"];
+      const whitelist = ["/", "/login", "/signup", "/events"];
       for (let path of whitelist) {
         if (req.path === path) {
           return next();

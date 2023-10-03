@@ -27,6 +27,17 @@ module.exports = class Database {
       define: {
         timestamps: false,
       },
+      dialectOptions: {
+        timezone: "+07:00",
+        dateStrings: true,
+        typeCast: function (field, next) {
+          if (field.type === "DATETIME") {
+            return field.string();
+          }
+          return next();
+        },
+      },
+      timezone: "+07:00",
     });
   }
 

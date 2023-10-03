@@ -104,6 +104,8 @@ class PromoController {
         },
       });
 
+      console.log(promo);
+
       if (!promo && !referral) {
         return res.status(200).json({
           status: 200,
@@ -117,12 +119,9 @@ class PromoController {
       }
 
       if (promo) {
-        const endDate = moment(normalizeDate(promo.end_date.toISOString()));
-        const startDate = moment(normalizeDate(promo.start_date.toISOString()));
+        const endDate = normalizeDate(promo.end_date);
+        const startDate = normalizeDate(promo.start_date);
         const currentDate = moment(date_now);
-
-        console.log(startDate);
-        console.log(endDate);
 
         if (
           !promo.active ||
