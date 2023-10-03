@@ -5,15 +5,35 @@ const db = require("../database/models");
 class Validator {
   static async validateApi(req, res, next) {
     try {
-      const body = req.body;
-      const user = jwt.verify(body.token, process.env.JWT_TOKEN);
+      const whitelist = ["/", "/login", "/signup"];
+      for (let path of whitelist) {
+        if (req.path === path) {
+          return next();
+        }
+      }
+
+      const headers = req.headers;
+      if (headers.authorization === undefined) {
+        res.status(401).json({
+          status: 401,
+          message: "Unauthorized request",
+          error: "Invalid token",
+        });
+        return;
+      }
+
+      const token = headers.authorization.split(" ");
+      const user = jwt.verify(token[1], process.env.JWT_TOKEN);
+
       if (!user) {
         res.status(401).json({
           status: 401,
           message: "Unauthorized request",
+          error: "Invalid token",
         });
         return;
       }
+
       const userdb = await db.User.findOne({
         where: {
           email: user.email,
@@ -25,19 +45,29 @@ class Validator {
         res.status(401).json({
           status: 401,
           message: "Unauthorized request",
+          error: "Invalid token",
         });
         return;
       }
 
       next();
     } catch (e) {
-      res.status(500).json({
-        code: 500,
-        message: "Login failed",
-        error: e.toString(),
-      });
+      if (e instanceof jwt.JsonWebTokenError) {
+        res.status(500).json({
+          code: 401,
+          message: "Unauthorized request",
+          error: "Invalid token",
+        });
+      } else {
+        res.status(500).json({
+          code: 500,
+          message: "Server error",
+          error: e.toString(),
+        });
+      }
     }
   }
+
   static async validateLogin(req, res, next) {
     try {
       const body = req.body;

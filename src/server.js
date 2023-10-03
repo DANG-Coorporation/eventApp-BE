@@ -5,10 +5,15 @@ const dotEnv = require("dotenv");
 const cors = require("cors");
 const Database = require("./database/db.js");
 
+const validator = require("./middleware/validator.js");
+
 const mainRoute = require("./routes/mainRoute.js");
 const loginRoute = require("./routes/loginRoute.js");
 const signUpRoute = require("./routes/signupRoute.js");
 const dummyRoute = require("./routes/dummyRoute.js");
+const eventRoute = require("./routes/eventRoute.js");
+const promotionRoute = require("./routes/pomotionRoute.js");
+const transactionRoute = require("./routes/transactionRoute.js");
 
 class Server {
   #server = undefined;
@@ -21,15 +26,20 @@ class Server {
   }
 
   #middlewareSetUp() {
+    //middleware di sini ges
     this.#server.use(helmet());
     this.#server.use(cors());
     this.#server.use(bodyParser.json());
     this.#server.use(bodyParser.urlencoded({ extended: true }));
+    this.#server.use(validator.validateApi);
 
     //tambahkan semua route di sini ges
     this.use(loginRoute);
     this.use(signUpRoute);
-    this.use(dummyRoute);
+    this.use(eventRoute);
+    this.use(promotionRoute);
+    this.use(transactionRoute);
+
     this.use(mainRoute);
   }
 
