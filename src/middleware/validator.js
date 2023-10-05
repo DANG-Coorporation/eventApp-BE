@@ -5,9 +5,9 @@ const db = require("../database/models");
 class Validator {
   static async validateApi(req, res, next) {
     try {
-      const whitelist = ["/", "/login", "/signup", "/events"];
+      const whitelist = ["/", "/login", "/signup", "/events", "/events/"];
       for (let path of whitelist) {
-        if (req.path === path) {
+        if (req.path.includes(path)) {
           return next();
         }
       }
@@ -54,7 +54,7 @@ class Validator {
     } catch (e) {
       if (e instanceof jwt.JsonWebTokenError) {
         res.status(500).json({
-          code: 401,
+          code: 500,
           message: "Unauthorized request",
           error: "Invalid token",
         });

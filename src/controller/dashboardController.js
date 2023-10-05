@@ -161,6 +161,43 @@ class DashboardController {
       });
     }
   }
+
+  static async getDashboardTransaction(req, res) {
+    try {
+      const { event_id } = req.query;
+      const transactions = await db.Transaction.findAll({
+        where: {
+          event_id: event_id,
+        },
+        include: [
+          {
+            model: db.Promotion,
+            as: "promotion",
+            attributes: ["promo_code", "discount"],
+          },
+          {
+            model: db.Event,
+            as: "event",
+          },
+        ],
+      });
+
+      res.status(200).json({
+        status: 200,
+        message: "Request was succesfull",
+        error: null,
+        data: {
+          transactions,
+        },
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 500,
+        message: "Request failed",
+        error: e.toString(),
+      });
+    }
+  }
 }
 
 module.exports = DashboardController;

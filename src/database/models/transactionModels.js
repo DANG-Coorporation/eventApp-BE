@@ -78,9 +78,11 @@ module.exports = (sequelize, DataTypes) => {
       });
       Transaction.belongsTo(models.Event, {
         foreignKey: "event_id",
+        as: "event",
       });
       Transaction.belongsTo(models.Promotion, {
         foreignKey: "promotion_id",
+        as: "promotion",
       });
       Transaction.hasMany(models.Referral, {
         as: "referral",
