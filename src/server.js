@@ -10,7 +10,6 @@ const validator = require("./middleware/validator.js");
 const mainRoute = require("./routes/mainRoute.js");
 const loginRoute = require("./routes/loginRoute.js");
 const signUpRoute = require("./routes/signupRoute.js");
-const dummyRoute = require("./routes/dummyRoute.js");
 const eventRoute = require("./routes/eventRoute.js");
 const promotionRoute = require("./routes/pomotionRoute.js");
 const transactionRoute = require("./routes/transactionRoute.js");

@@ -10,5 +10,7 @@ router
     PromoController.getPromoByPromoCode
   )
   .get("/promotion-validation", PromoController.checkPromoByEvent);
+router.post("/promotion", PromoController.createPromo);
+router.delete("/promotion/:promoId", PromoController.deactivatePromo);
 
 module.exports = router;
