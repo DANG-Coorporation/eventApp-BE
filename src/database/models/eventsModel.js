@@ -121,6 +121,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      event_category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       ticket_type: {
         type: DataTypes.STRING,
         allowNull: false,
