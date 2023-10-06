@@ -168,6 +168,7 @@ class DashboardController {
       const transactions = await db.Transaction.findAll({
         where: {
           event_id: event_id,
+          isTransactionCompleted: true,
         },
         include: [
           {
