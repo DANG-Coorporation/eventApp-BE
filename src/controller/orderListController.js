@@ -4,13 +4,23 @@ const { Op } = require("sequelize");
 
 const getOrderedList = async (req, res) => {
   const { user_id } = req.params;
-  const { event_status } = req.query;
+  const { event_status, transaction_id } = req.query;
   const options = {
     model: db.Event,
     where: {},
   };
   const isEventDone =
-    event_status == "done" ? true : event_status == "ordered" ? false : undefined;
+    event_status == "done"
+      ? true
+      : event_status == "ordered"
+      ? false
+      : undefined;
+  let transactionClause = {
+    user_id: user_id,
+  };
+  if (req.query.transaction_id) {
+    transactionClause.id = req.query.transaction_id;
+  }
   if (isEventDone !== undefined) {
     options.where = {
       start_date: isEventDone
@@ -20,17 +30,21 @@ const getOrderedList = async (req, res) => {
   }
   try {
     const result = await db.Transaction.findAll({
-      where: {
-        user_id: user_id,
-      },
+      where: transactionClause,
       include: [
         options,
         {
           model: db.Review,
-          as: 'review'
+          as: "review",
+        },
+        {
+          model: db.Referral,
+          as: "referral",
+        },
+        {
+          model: db.Promotion,
         },
       ],
-    
     });
     res.status(200).json({
       status: 200,
@@ -47,5 +61,5 @@ const getOrderedList = async (req, res) => {
 };
 
 module.exports = {
-  getOrderedList
+  getOrderedList,
 };
