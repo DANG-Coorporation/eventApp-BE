@@ -71,14 +71,15 @@ class Validator {
   static async validateLogin(req, res, next) {
     try {
       const body = req.body;
-      const users = await db.User.findOne({
+      const user = await db.User.findOne({
+        raw: true,
         where: {
           email: body.email,
           password: body.password,
         },
       });
 
-      if (!users) {
+      if (!user) {
         res.status(401).json({
           code: 401,
           message: "Login failed",
@@ -86,7 +87,8 @@ class Validator {
         });
         return;
       }
-      req.userObj = users.dataValues;
+      delete user.password;
+      req.userObj = user;
       next();
     } catch (e) {
       res.status(500).json({
