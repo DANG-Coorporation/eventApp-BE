@@ -65,7 +65,7 @@ class Server {
           console.log("Server is running at", process.env.PORT);
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   }
