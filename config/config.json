@@ -1,10 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
+    "password": "1234567890",
     "database": "event_app_dev",
-    "host": "localhost",
-    "port": 8889,
+    "host": "127.0.0.1",
     "dialect": "mysql",
     "dialectOptions": {
       "timezone": "+07:00",
