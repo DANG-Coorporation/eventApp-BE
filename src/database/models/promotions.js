@@ -69,6 +69,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Promotion.belongsTo(models.Event, {
         foreignKey: "event_Id",
+        as: "event",
       });
       Promotion.hasMany(models.Transaction, {
         as: "transaction",

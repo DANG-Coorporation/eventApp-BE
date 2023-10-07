@@ -88,6 +88,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Event.belongsTo(models.User, {
         foreignKey: "user_id",
+        as : "user"
       });
       Event.hasMany(models.Promotion, {
         as: "promotion",
@@ -152,6 +153,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       event_place: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      event_category: {
         type: DataTypes.STRING,
         allowNull: false,
       },
