@@ -10,6 +10,7 @@ router
     PromoController.getPromoByPromoCode
   )
   .get("/promotion-validation", PromoController.checkPromoByEvent);
+router.get("/promotion", PromoController.checkUsedPromo, PromoController.getActivePromo);
 router.post("/promotion", PromoController.createPromo);
 router.delete("/promotion/:promoId", PromoController.deactivatePromo);
 
