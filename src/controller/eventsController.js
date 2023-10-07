@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
 const db = require("../database/models");
+const minioService = require("../utils/minioService");
 
 class EventController {
   static async getEvents(req, res, next) {
@@ -114,6 +115,11 @@ class EventController {
       const data = req.body;
       const imageFile = req.file;
 
+      let imgPath = "";
+      if (imageFile) {
+        imgPath = await minioService(imageFile);
+      }
+
       await db.Event.create({
         user_id: data.user_id,
         event_name: data.event_name,
@@ -126,7 +132,7 @@ class EventController {
         description: data.description,
         price: data.price,
         quota: data.quota,
-        img: imageFile ? imageFile?.filename : "",
+        img: imgPath,
       });
       res.status(200).json({
         status: 200,
@@ -136,6 +142,30 @@ class EventController {
       res.status(500).json({
         status: 500,
         message: "Create Event Failed",
+        error: e.toString(),
+      });
+    }
+  }
+
+  static async searchEvent(req, res, next) {
+    try {
+      const search = req.query.name;
+      const event = await db.Event.findOne({
+        where: {
+          event_name: search,
+        },
+        raw: true,
+      });
+      res.status(200).json({
+        status: 200,
+        message: "Request was successfull",
+        error: null,
+        data: event,
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 500,
+        message: "Request Failed",
         error: e.toString(),
       });
     }
