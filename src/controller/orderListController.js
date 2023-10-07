@@ -24,7 +24,7 @@ const getOrderedList = async (req, res) => {
   }
   if (isEventDone !== undefined) {
     options.where = {
-      start_date: isEventDone
+      end_date: isEventDone
         ? { [Op.lte]: Sequelize.literal("NOW()") }
         : { [Op.gt]: Sequelize.literal("NOW()") },
     };

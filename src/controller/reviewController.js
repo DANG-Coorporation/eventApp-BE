@@ -95,7 +95,7 @@ const editReview = async (req, res) => {
       {
         star: star,
         comment: comment,
-        // isEdited: true,
+        isEdited: true,
       },
       {
         where: {
