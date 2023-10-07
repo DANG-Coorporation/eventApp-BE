@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
 
-      isEdited: {
+      is_edited: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

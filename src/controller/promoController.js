@@ -39,6 +39,7 @@ class PromoController {
         raw: true,
         where: {
           event_id: event_id,
+          active: true
         },
       });
 
@@ -156,6 +157,124 @@ class PromoController {
         message: "Request failed",
         error: e.toString(),
         data: null,
+      });
+    }
+  }
+  static async getPromoByUserId(req, res) {
+    const { user_id } = req.query;
+    try {
+      const result = await db.Promotion.findAll({
+        where: { user_id: user_id },
+      });
+      res.status(200).json({
+        status: 200,
+        message: "Get Promotion by ID Successfully",
+        data: result,
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 200,
+        message: "Get Promotion Failed",
+        error: e.toString(),
+      });
+    }
+  }
+
+  static async createPromo(req, res) {
+    const { event_id, promo_code, start_date, end_date, discount, quota } =
+      req.body;
+    try {
+      const checkActivePromo = await db.Promotion.findOne({
+        where: { 
+          event_id: event_id,
+          active: 1 
+        },
+      });
+      const checkEventDate = await db.Event.findOne({
+        raw: true,
+        where: {
+          id: event_id,
+        },
+        attributes: ["end_date"],
+      });
+      const promoDateIsValid = start_date <= end_date;
+      const eventDateIsValid = new Date(end_date) <= new Date(checkEventDate.end_date);
+      if (
+        !event_id ||
+        !promo_code ||
+        !start_date ||
+        !end_date ||
+        !discount ||
+        !quota
+      ) {
+        return res.status(400).send({
+          status: 400,
+          message: "Field must be filled",
+        });
+      }
+      if (!promoDateIsValid) {
+        return res.status(500).json({
+          status: 500,
+          message: "Post Promotion failed",
+          error:
+            "Promo date is invalid, Promo start date must be less than or equal to promo date end",
+        });
+      }
+      if (checkActivePromo) {
+        return res.status(500).json({
+          status: 500,
+          message: "Post Promotion failed",
+          error: "Another Promotion is active",
+        });
+      }
+      if (!eventDateIsValid) {
+        return res.status(500).json({
+          status: 500,
+          message: "Post Promotion failed",
+          error: "Promo date must be less than or equal to event date end",
+        });
+      }
+      await db.Promotion.create({
+        event_id: event_id,
+        promo_code: promo_code,
+        start_date: start_date,
+        end_date: end_date,
+        discount: discount,
+        quota: quota,
+        active: true,
+      });
+      res.status(200).json({
+        status: 200,
+        message: "Post Promotion Success",
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 500,
+        message: "Post Promotion failed",
+        error: e.toString(),
+      });
+    }
+  }
+  static async deactivatePromo(req, res) {
+    const paramPromoId = req.params.promoId;
+    try {
+      await db.Promotion.update(
+        { active: false },
+        {
+          where: {
+            id: paramPromoId,
+          },
+        }
+      );
+      res.status(200).json({
+        status: 200,
+        message: "Delete Promotion Success",
+      });
+    } catch (e) {
+      res.status(500).json({
+        status: 200,
+        message: "Get Promotion Failed",
+        error: e.toString(),
       });
     }
   }
