@@ -4,7 +4,7 @@
 module.exports = {
   async up(queryInterface) {
     await queryInterface.addConstraint("reviews", {
-      fields: ["transcation_id"],
+      fields: ["transaction_id"],
       references: {
         table: "transactions",
         field: "id",

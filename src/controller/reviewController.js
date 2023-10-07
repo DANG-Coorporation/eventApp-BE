@@ -9,6 +9,7 @@ const createReview = async (req, res) => {
       },
       include: {
         model: db.Event,
+        as: "event",
         attributes: ["start_date", "end_date"],
       },
       attributes: ["id", "event_id"],
@@ -41,7 +42,7 @@ const createReview = async (req, res) => {
       transaction_id: transaction_id,
       star: star,
       comment: comment,
-      is_edited: false,
+      isEdited: false,
     });
     res.status(200).json({
       status: 200,
@@ -65,6 +66,7 @@ const getReview = async (req, res) => {
       },
       include: {
         model: db.Transaction,
+        as: "transaction",
         attributes: [],
         // include: {
         //   model: db.Event,
@@ -75,11 +77,11 @@ const getReview = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: "Get Review Success",
-      data: result
+      data: result,
     });
   } catch (e) {
     res.status(500).json({
-      status: 200,
+      status: 500,
       message: "Get Review Failed",
       error: e.toString(),
     });
@@ -87,31 +89,33 @@ const getReview = async (req, res) => {
 };
 
 const editReview = async (req, res) => {
-  try{
+  try {
     const { transaction_id, star, comment } = req.body;
-    const [result] = await db.Review.update({
-      star: star,
-      comment: comment,
-      is_edited: true
-    }, {
-      where: {
-        transaction_id: transaction_id,
-        is_edited: false
+    const [result] = await db.Review.update(
+      {
+        star: star,
+        comment: comment,
+        isEdited: true,
+      },
+      {
+        where: {
+          transaction_id: transaction_id,
+          isEdited: false,
+        },
       }
-    })
-    if(result > 0){
+    );
+    if (result > 0) {
       return res.status(200).json({
         status: 200,
         message: "Update Review Success",
       });
-    }else{
+    } else {
       return res.status(400).json({
         status: 400,
         message: "User only can update review once",
       });
     }
-    
-  } catch (e){
+  } catch (e) {
     res.status(500).json({
       status: 500,
       message: "Update Review Failed",

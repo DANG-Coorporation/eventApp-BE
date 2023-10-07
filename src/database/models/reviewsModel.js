@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Review.belongsTo(models.Transaction, {
         foreignKey: "transaction_id",
-        as : "transaction"
+        as: "transaction",
       });
     }
   }
@@ -89,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
 
-      is_edited: {
+      isEdited: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },

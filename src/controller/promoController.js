@@ -20,11 +20,11 @@ class PromoController {
         data: promos,
       });
     } catch (e) {
+      console.log(e);
       res.status(500).json({
         status: 500,
         message: "Request failed",
-        error: null,
-        data: promos,
+        error: e.toString(),
       });
     }
   }
@@ -39,7 +39,7 @@ class PromoController {
         raw: true,
         where: {
           event_id: event_id,
-          active: true
+          active: true,
         },
       });
 
@@ -53,8 +53,7 @@ class PromoController {
       res.status(500).json({
         status: 500,
         message: "Request failed",
-        error: null,
-        data: promos,
+        error: e.toString(),
       });
     }
   }
@@ -79,8 +78,7 @@ class PromoController {
       res.status(500).json({
         status: 500,
         message: "Request failed",
-        error: null,
-        data: promos,
+        error: e.toString(),
       });
     }
   }
@@ -156,7 +154,6 @@ class PromoController {
         status: 500,
         message: "Request failed",
         error: e.toString(),
-        data: null,
       });
     }
   }
@@ -185,9 +182,9 @@ class PromoController {
       req.body;
     try {
       const checkActivePromo = await db.Promotion.findOne({
-        where: { 
+        where: {
           event_id: event_id,
-          active: 1 
+          active: 1,
         },
       });
       const checkEventDate = await db.Event.findOne({
@@ -198,7 +195,8 @@ class PromoController {
         attributes: ["end_date"],
       });
       const promoDateIsValid = start_date <= end_date;
-      const eventDateIsValid = new Date(end_date) <= new Date(checkEventDate.end_date);
+      const eventDateIsValid =
+        new Date(end_date) <= new Date(checkEventDate.end_date);
       if (
         !event_id ||
         !promo_code ||
