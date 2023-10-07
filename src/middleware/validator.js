@@ -5,9 +5,9 @@ const db = require("../database/models");
 class Validator {
   static async validateApi(req, res, next) {
     try {
-      const whitelist = ["/", "/login", "/signup", "/events"];
+      const whitelist = ["/", "/login", "/signup", "/events", "/events/"];
       for (let path of whitelist) {
-        if (req.path === path) {
+        if (req.path.includes(path)) {
           return next();
         }
       }
@@ -54,7 +54,7 @@ class Validator {
     } catch (e) {
       if (e instanceof jwt.JsonWebTokenError) {
         res.status(500).json({
-          code: 401,
+          code: 500,
           message: "Unauthorized request",
           error: "Invalid token",
         });
@@ -71,14 +71,15 @@ class Validator {
   static async validateLogin(req, res, next) {
     try {
       const body = req.body;
-      const users = await db.User.findOne({
+      const user = await db.User.findOne({
+        raw: true,
         where: {
           email: body.email,
           password: body.password,
         },
       });
 
-      if (!users) {
+      if (!user) {
         res.status(401).json({
           code: 401,
           message: "Login failed",
@@ -86,7 +87,8 @@ class Validator {
         });
         return;
       }
-      req.userObj = users.dataValues;
+      delete user.password;
+      req.userObj = user;
       next();
     } catch (e) {
       res.status(500).json({
