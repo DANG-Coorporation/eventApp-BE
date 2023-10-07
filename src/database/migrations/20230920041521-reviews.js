@@ -11,7 +11,7 @@ module.exports = {
         allowNull: false,
       },
 
-      transaction_id: {
+      transcation_id: {
         type: Sequelize.DataTypes.BIGINT,
         allowNull: false,
       },

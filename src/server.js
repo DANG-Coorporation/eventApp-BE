@@ -10,12 +10,11 @@ const validator = require("./middleware/validator.js");
 const mainRoute = require("./routes/mainRoute.js");
 const loginRoute = require("./routes/loginRoute.js");
 const signUpRoute = require("./routes/signupRoute.js");
+const dummyRoute = require("./routes/dummyRoute.js");
 const eventRoute = require("./routes/eventRoute.js");
 const promotionRoute = require("./routes/pomotionRoute.js");
 const transactionRoute = require("./routes/transactionRoute.js");
 const dashboardRoute = require("./routes/dashboardRoute.js");
-const reviewRoute = require("./routes/reviewRoute.js");
-const orderListRoute = require("./routes/orderListRoute.js");
 
 class Server {
   #server = undefined;
@@ -42,8 +41,6 @@ class Server {
     this.use(promotionRoute);
     this.use(transactionRoute);
     this.use(dashboardRoute);
-    this.use(reviewRoute);
-    this.use(orderListRoute);
 
     this.use(mainRoute);
   }
@@ -65,7 +62,7 @@ class Server {
           console.log("Server is running at", process.env.PORT);
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }

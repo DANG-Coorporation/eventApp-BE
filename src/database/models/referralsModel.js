@@ -48,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Referral.belongsTo(models.Transaction, {
         foreignKey: "transaction_id",
-        as: "transaction",
       });
     }
   }

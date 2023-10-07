@@ -75,15 +75,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Transaction.belongsTo(models.User, {
         foreignKey: "user_id",
-        as: "user",
       });
       Transaction.belongsTo(models.Event, {
         foreignKey: "event_id",
-        as: "event",
       });
       Transaction.belongsTo(models.Promotion, {
         foreignKey: "promotion_id",
-        as: "promotion",
       });
       Transaction.hasMany(models.Referral, {
         as: "referral",

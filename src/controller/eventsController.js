@@ -92,6 +92,7 @@ class EventController {
       }
 
       if (events[0].dataValues.transaction.length === 0) {
+        
       }
 
       res.status(200).json({
@@ -104,38 +105,6 @@ class EventController {
       res.status(500).json({
         status: 500,
         message: "Request Failed",
-        error: e.toString(),
-      });
-    }
-  }
-
-  static async createEvent(req, res) {
-    try {
-      const data = req.body;
-      const imageFile = req.file;
-
-      await db.Event.create({
-        user_id: data.user_id,
-        event_name: data.event_name,
-        event_category: data.event_category,
-        ticket_type: data.ticket_type,
-        start_date: data.start_date,
-        end_date: data.end_date,
-        location: data.location,
-        event_place: data.event_place,
-        description: data.description,
-        price: data.price,
-        quota: data.quota,
-        img: imageFile ? imageFile?.filename : "",
-      });
-      res.status(200).json({
-        status: 200,
-        message: "Create Event Success",
-      });
-    } catch (e) {
-      res.status(500).json({
-        status: 500,
-        message: "Create Event Failed",
         error: e.toString(),
       });
     }

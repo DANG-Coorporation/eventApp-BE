@@ -2,4 +2,3 @@ seeders/.gitkeep
 .env
 src/routes/dummyRoute.js
 node_modules
-config/config.json
