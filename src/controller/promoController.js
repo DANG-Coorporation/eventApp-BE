@@ -157,21 +157,54 @@ class PromoController {
       });
     }
   }
-  static async getPromoByUserId(req, res) {
-    const { user_id } = req.query;
+  static async checkUsedPromo(req, res, next) {
+    const { event_id } = req.query;
+    req.promoUsed = null
     try {
-      const result = await db.Promotion.findAll({
-        where: { user_id: user_id },
+      const promoUsed = await db.Transaction.count({
+        where: { event_id: event_id },
+        include:
+          {
+            model: db.Promotion,
+            as:'promotion',
+            where:{
+              active: true
+            }
+          }
+        
       });
-      res.status(200).json({
-        status: 200,
-        message: "Get Promotion by ID Successfully",
-        data: result,
-      });
+      req.promoUsed = promoUsed
     } catch (e) {
       res.status(500).json({
+        status: 500,
+        message: "Check Used Promo Failed",
+        error: e.toString(),
+      });
+    }
+    if(req.promoUsed !== null){
+      next()
+    }
+  }
+  static async getActivePromo(req, res, next) {
+    try{
+      const result = await db.Promotion.findOne({
+        where:{
+          event_id: req.query.event_id,
+          active: true
+        }
+      })
+      res.status(200).json({
         status: 200,
-        message: "Get Promotion Failed",
+        message: "Get Active Promotion Successfully",
+        data: result ? {
+          ...result.dataValues,
+          used_promo:req.promoUsed
+        } : null
+      });
+    } catch (e){
+      res.status(500).json({
+        status: 500,
+        message: "Get Active Promotion Failed",
         error: e.toString(),
       });
     }

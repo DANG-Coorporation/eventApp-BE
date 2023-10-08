@@ -19,7 +19,7 @@ const createReview = async (req, res) => {
         transaction_id: transaction_id,
       },
     });
-    if (new Date() < resCheckEvent.Event.end_date) {
+    if (new Date() < resCheckEvent.event.end_date) {
       return res.status(400).json({
         status: 400,
         message: "Event is not finished yet",

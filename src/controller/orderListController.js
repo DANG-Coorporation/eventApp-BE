@@ -7,6 +7,7 @@ const getOrderedList = async (req, res) => {
   const { event_status, transaction_id } = req.query;
   const options = {
     model: db.Event,
+    as: 'event',
     where: {},
   };
   const isEventDone =
@@ -23,7 +24,7 @@ const getOrderedList = async (req, res) => {
   }
   if (isEventDone !== undefined) {
     options.where = {
-      start_date: isEventDone
+      end_date: isEventDone
         ? { [Op.lte]: Sequelize.literal("NOW()") }
         : { [Op.gt]: Sequelize.literal("NOW()") },
     };
@@ -43,6 +44,7 @@ const getOrderedList = async (req, res) => {
         },
         {
           model: db.Promotion,
+          as: 'promotion'
         },
       ],
     });
